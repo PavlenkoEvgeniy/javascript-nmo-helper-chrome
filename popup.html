@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: 'Open Sans', Arial, sans-serif;
+      width: 400px;
+      padding: 16px;
+      background: #fafafa;
+    }
+    h1 {
+      font-size: 16px;
+      color: #195ea0;
+      margin: 0 0 16px 0;
+    }
+    .section {
+      background: white;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .section-label {
+      font-size: 11px;
+      color: #666;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .section-value {
+      font-size: 14px;
+      color: #333;
+    }
+    .theme {
+      font-weight: 600;
+      color: #195ea0;
+    }
+    .question-type {
+      color: #e65100;
+      font-style: italic;
+    }
+    .answers-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .answers-list li {
+      padding: 6px 0;
+      border-bottom: 1px solid #eee;
+      font-size: 13px;
+    }
+    .answers-list li:last-child {
+      border-bottom: none;
+    }
+    .prompt-preview {
+      background: #f5f5f5;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 10px;
+      font-size: 12px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .btn {
+      background: #195ea0;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: 600;
+    }
+    .btn:hover {
+      background: #154a85;
+    }
+    .btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    .status {
+      text-align: center;
+      padding: 8px;
+      margin-top: 8px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+    .status.success {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+    .status.error {
+      background: #ffebee;
+      color: #c62828;
+    }
+    .empty {
+      color: #999;
+      font-style: italic;
+    }
+    .buttons-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .buttons-row .btn {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <h1>🩺 НМО Помощник</h1>
+
+  <div class="buttons-row">
+    <button class="btn" id="parseBtn">Парсить страницу</button>
+    <button class="btn" id="copyBtn" disabled>Копировать промпт</button>
+  </div>
+  <div class="status" id="status" style="display: none;"></div>
+
+  <div class="section">
+    <div class="section-label">Тема теста</div>
+    <div class="section-value theme" id="theme">Загрузка...</div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Вопрос</div>
+    <div class="section-value" id="question">Загрузка...</div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Тип вопроса</div>
+    <div class="section-value question-type" id="questionType">Загрузка...</div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Варианты ответов</div>
+    <ul class="answers-list" id="answersList">
+      <li class="empty">Загрузка...</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Превью промпта</div>
+    <div class="prompt-preview" id="promptPreview">Загрузка...</div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
