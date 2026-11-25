@@ -1,6 +1,6 @@
 {
   "name": "nmo-helper",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Chrome extension (MV3): reads an NMO test page and builds an AI prompt.",
   "type": "module",
   "scripts": {
