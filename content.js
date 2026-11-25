@@ -13,7 +13,7 @@ function extractTestData() {
     theme: null,
     question: null,
     questionType: null,
-    answers: []
+    answers: [],
   };
 
   // Extract theme (quiz topic from header) — use specific class to avoid question's mat-card-title
