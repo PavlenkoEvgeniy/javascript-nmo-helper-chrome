@@ -67,20 +67,28 @@
 2. `git tag v<version> && git push --tags`
 3. GitHub Actions соберёт `nmo-helper-<version>.zip` и создаст GitHub Release.
 
+На каждом CI-прогоне тот же zip публикуется как артефакт `nmo-helper-extension`
+(вкладка Actions → нужный run → Artifacts). Это удобно для проверки сборки
+без создания релиза.
+
 ## 🏗 Архитектура
 
-- **popup.js** запрашивает у **content.js** данные через `chrome.runtime.sendMessage`
-- **content.js** ищет на странице элементы с CSS-классами:
+- **popup** (`src/popup/index.ts`) запрашивает у content script данные через
+  `chrome.tabs.sendMessage`; если listener ещё не установлен, инжектит
+  `content.js` через `chrome.scripting.executeScript` и повторяет запрос.
+- **content script** (`src/content/index.ts`) ищет на странице элементы с
+  CSS-классами:
   - `.mat-card-title-quiz-custom` — тема теста
   - `div.question-title-text` — текст вопроса
   - `div.mat-card-question__type` — тип вопроса
   - `span.question-inner-html-text` — варианты ответов
-- Сгенерированный промпт копируется в буфер обмена через `navigator.clipboard`
+- Промпт собирается в `src/lib/prompt.ts` и копируется в буфер обмена через
+  `navigator.clipboard`.
 
 ## 📋 Требования
 
 - Chrome 88+ (поддержка Manifest V3)
-- Права: `activeTab`, `clipboardWrite`, `scripting`
+- Права: `activeTab`, `scripting`
 
 ---
 
