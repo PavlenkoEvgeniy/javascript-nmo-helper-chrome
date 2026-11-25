@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Inject content script first
       await chrome.scripting.executeScript({
         target: { tabId: tab.id },
-        files: ['content.js']
+        files: ['content.js'],
       });
       console.log('[НМО Помощник] Content script injected');
 
@@ -97,9 +97,10 @@ function displayData(data) {
 }
 
 function buildPrompt(data) {
-  const answersText = data.answers && data.answers.length > 0
-    ? data.answers.map((a, i) => `${i + 1}. ${a}`).join('\n')
-    : 'Варианты ответов не найдены';
+  const answersText =
+    data.answers && data.answers.length > 0
+      ? data.answers.map((a, i) => `${i + 1}. ${a}`).join('\n')
+      : 'Варианты ответов не найдены';
 
   const typeText = data.questionType ? ` Тип вопроса: ${data.questionType}.` : '';
 
@@ -121,7 +122,8 @@ function showInitialState() {
   document.getElementById('question').classList.add('empty');
   document.getElementById('questionType').textContent = 'Нажмите "Парсить страницу"';
   document.getElementById('questionType').classList.add('empty');
-  document.getElementById('answersList').innerHTML = '<li class="empty">Нажмите "Парсить страницу"</li>';
+  document.getElementById('answersList').innerHTML =
+    '<li class="empty">Нажмите "Парсить страницу"</li>';
   document.getElementById('promptPreview').textContent = 'Нажмите "Парсить страницу"';
 }
 

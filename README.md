@@ -3,6 +3,7 @@
 > Chrome-расширение (Manifest V3) для парсинга тестовых вопросов с портала НМО и генерации промпта для ИИ-помощника.
 
 ## 🖼 Превью
+
 <img src="screenshot.png" alt="Login page" height="300">
 
 ## ✨ Что делает
@@ -27,19 +28,44 @@
 4. Просмотреть извлечённые данные (тема, вопрос, тип, варианты ответов)
 5. Нажать **Копировать промпт** — текст промпта попадает в буфер обмена
 6. Вставить промпт в чат с DeepSeek (ChatGPT, Claude, Grok и т.д.)
-7. (*СОВЕТ*) Прикрепите в чат DeepSeek через значок "скрепка" файл с клинреками - так вероятность правильного ответа очень сильно повысится.
+7. (_СОВЕТ_) Прикрепите в чат DeepSeek через значок "скрепка" файл с клинреками - так вероятность правильного ответа очень сильно повысится.
 
 ## 📁 Структура файлов
 
 ```
 .
-├── manifest.json    — конфигурация расширения (Manifest V3)
-├── popup.html       — UI всплывающего окна
-├── popup.js         — логика popup: парсинг через content script, копирование
-├── content.js       — content script: извлекает данные со страницы НМО
-├── icon.png         — иконка расширения
-└── README.md        — этот файл
+├── src/               — исходники (TypeScript)
+│   ├── lib/           — чистая логика: normalize, extract, prompt
+│   ├── popup/         — UI всплывающего окна
+│   ├── content/       — content script (инъекция по клику)
+│   ├── manifest.json
+│   └── popup.html     — шаблон popup
+├── tests/             — unit-тесты (Vitest + jsdom)
+├── scripts/           — сборка и упаковка
+├── dist/              — сборочный выход (загрузка распакованного из него), gitignored
+├── docs/adr/          — ADR
+├── openspec/          — спецификации и изменения (OpenSpec)
+├── .github/workflows/ — CI и релиз
+├── package.json
+├── GLOSSARY.md
+├── README.md
+├── icon.png
+└── screenshot.png
 ```
+
+## ⚙️ Разработка
+
+1. `npm ci`
+2. `npm run build` — собирает `dist/`
+3. Загрузить в Chrome распакованную из папки `dist/` (`chrome://extensions/` →
+   «Режим разработчика» → «Загрузить распакованное расширение»)
+4. `npm test`, `npm run lint`, `npm run typecheck` — проверки
+
+## 📦 Релиз
+
+1. Обновить версию в `package.json` и `src/manifest.json` (должны совпадать).
+2. `git tag v<version> && git push --tags`
+3. GitHub Actions соберёт `nmo-helper-<version>.zip` и создаст GitHub Release.
 
 ## 🏗 Архитектура
 
